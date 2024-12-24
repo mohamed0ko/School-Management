@@ -37,7 +37,8 @@ export default function Users() {
                                 <th scope="row">{user ? user.id : <></>}</th>
                                 <td>
                                     {user ? user.name : <></>}
-                                    {user.fristname}
+                                    {user ? user.fristname : <></>}
+                                    {user ? user.lastname : <></>}
                                 </td>
                                 <td>{user ? user.email : <></>}</td>
                                 <td>{user ? user.created_at : <></>}</td>

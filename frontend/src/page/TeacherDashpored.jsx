@@ -3,8 +3,8 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuthContext } from "../api/ContextAuth";
 import StudentsApi from "../servies/api/students/students";
-export default function SutedentDashpored() {
-    const { setUser, setAuthenticated, logout, authenticated } =
+export default function TeacherDashpored() {
+    const { setUser, setAuthenticated, logout, authenticated, user } =
         useAuthContext();
     const navigate = useNavigate();
     const [isloding, setIsloding] = useState(true);
@@ -47,10 +47,10 @@ export default function SutedentDashpored() {
                         >
                             <li className="nav-item">
                                 <Link
-                                    to="/SutedentDashpored/student"
+                                    to="/TeacherDashpored/teacher"
                                     className="nav-link align-middle px-0"
                                 >
-                                    Student
+                                    teacher
                                 </Link>
                             </li>
                             <li>
@@ -251,32 +251,6 @@ export default function SutedentDashpored() {
                     </div>
                 </div>
                 <div style={{ width: "100%" }} className="col py-3 tow">
-                    {/*  <div>
-                        <table className="table">
-                            <thead className="thead-light">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">NAME</th>
-                                    <th scope="col">EMAIL</th>
-                                    <th scope="col">DATE</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        {user ? user.id : <></>}
-                                    </th>
-                                    <td>
-                                        {user ? user.name : <></>}
-                                        {user ? user.fristname : <></>}
-                                        {user ? user.lastname : <></>}
-                                    </td>
-                                    <td>{user ? user.email : <></>}</td>
-                                    <td>{user ? user.created_at : <></>}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div> */}
                     <Outlet />
                 </div>
             </div>

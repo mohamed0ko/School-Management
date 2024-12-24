@@ -18,24 +18,23 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): JsonResponse
     {
         $request->authenticate();
-        $guards = ['web','teacher','admin'];
-        $user=null;
+        $guards = array_keys(config('auth.guards'));
+        $user = null;
         foreach ($guards as $guard) {
             $currentGuard = Auth::guard($guard);
-            if ( $currentGuard->check()) {
-             $user=$currentGuard->user();
+            if ($currentGuard->check()) {
+                $user = $currentGuard->user();
                 break;
             }
         }
- 
+
 
         $request->session()->regenerate();
 
-        return response()->json( [
+        return response()->json([
             'user' => $user,
             'token' => $user->createToken('api', ['admin'])->plainTextToken
-        ] );
-        
+        ]);
     }
 
     /**
@@ -43,13 +42,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): Response
     {
-      
-            Auth::guard('admin')->logout();
-       
+
+        Auth::guard('admin')->logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-    
+
         return response()->noContent();
     }
-    
 }

@@ -7,6 +7,8 @@ import Users from "./page/Users";
 import Layout from "./router/Layout";
 import Login from "./page/Login";
 import SutedentDashpored from "./page/SutedentDashpored";
+import AdminDashpored from "./page/AdminDashpored";
+import TeacherDashpored from "./page/TeacherDashpored";
 
 function App() {
     return (
@@ -22,6 +24,18 @@ function App() {
                             element={<SutedentDashpored />}
                         >
                             <Route index path="student" element={<Users />} />
+                        </Route>
+                        <Route
+                            path="/AdminDashpored"
+                            element={<AdminDashpored />}
+                        >
+                            <Route index path="admin" element={<Users />} />
+                        </Route>
+                        <Route
+                            path="/TeacherDashpored"
+                            element={<TeacherDashpored />}
+                        >
+                            <Route index path="teacher" element={<Users />} />
                         </Route>
                     </Route>
                 </Routes>

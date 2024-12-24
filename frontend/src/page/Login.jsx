@@ -28,38 +28,65 @@ function Login() {
         });
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        if (isSubmitting) return;
-        setIsSubmitting(true);
 
+        if (isSubmitting) return; // منع التكرار
+        setIsSubmitting(true); // تعيين حالة الإرسال
+
+        // إعادة تعيين الأخطاء
         setError({ email: "", password: "" });
 
-        try {
-            await StudentsApi.getCsrfToken();
+        // الحصول على رمز CSRF
+        StudentsApi.getCsrfToken()
+            .then(() => {
+                // محاولة تسجيل الدخول
+                return StudentsApi.login(user);
+            })
+            .then((response) => {
+                const { status, data } = response;
 
-            const response = await StudentsApi.login(user);
+                if (status === 200) {
+                    // تحديد المصادقة
+                    setAuthenticated(true);
 
-            if (response.status === 200 || response.status === 204) {
-                setAuthenticated(true);
-                /* console.log(user); */
-                navigate("/SutedentDashpored");
-            } else {
-                const errors = response.data.errors || {};
+                    // التوجيه بناءً على دور المستخدم
+                    const { role } = data.user;
+                    switch (role) {
+                        case "admin":
+                            navigate("/AdminDashpored/admin");
+                            break;
+                        case "student":
+                            navigate("/SutedentDashpored");
+                            break;
+                        case "teacher":
+                            navigate("/TeacherDashpored");
+                            break;
+                        default:
+                            navigate("/Login");
+                            break;
+                    }
+                } else {
+                    // معالجة الأخطاء القادمة من الخادم
+                    const errors = data.errors || {};
+                    setError({
+                        email: errors.email || "",
+                        password: errors.password || "",
+                    });
+                }
+            })
+            .catch((error) => {
+                // معالجة الخطأ في حالة الفشل
+                console.error("حدث خطأ أثناء تسجيل الدخول:", error);
                 setError({
-                    email: errors.email || "",
-                    password: errors.password || "",
+                    email: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+                    password: "",
                 });
-            }
-        } catch (error) {
-            console.error("حدث خطأ أثناء تسجيل الدخول:", error);
-            setError({
-                email: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
-                password: "",
+            })
+            .finally(() => {
+                // إنهاء حالة الإرسال
+                setIsSubmitting(false);
             });
-        } finally {
-            setIsSubmitting(false);
-        }
     };
 
     return (

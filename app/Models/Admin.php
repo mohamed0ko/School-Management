@@ -11,4 +11,9 @@ use Laravel\Sanctum\HasApiTokens;
 class Admin extends Authenticable
 {
     use HasApiTokens, HasFactory, SoftDeletes;
+    protected $appends = ['role'];
+    public function getRoleAttribute()
+    {
+        return 'admin';
+    }
 }

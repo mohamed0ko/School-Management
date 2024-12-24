@@ -3,7 +3,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuthContext } from "../api/ContextAuth";
 import StudentsApi from "../servies/api/students/students";
-export default function SutedentDashpored() {
+export default function AdminDashpored() {
     const { setUser, setAuthenticated, logout, authenticated } =
         useAuthContext();
     const navigate = useNavigate();
@@ -47,10 +47,10 @@ export default function SutedentDashpored() {
                         >
                             <li className="nav-item">
                                 <Link
-                                    to="/SutedentDashpored/student"
+                                    to="/AdminDashpored/admin"
                                     className="nav-link align-middle px-0"
                                 >
-                                    Student
+                                    admin
                                 </Link>
                             </li>
                             <li>
@@ -251,7 +251,7 @@ export default function SutedentDashpored() {
                     </div>
                 </div>
                 <div style={{ width: "100%" }} className="col py-3 tow">
-                    {/*  <div>
+                    {/*   <div>
                         <table className="table">
                             <thead className="thead-light">
                                 <tr>
@@ -269,7 +269,6 @@ export default function SutedentDashpored() {
                                     <td>
                                         {user ? user.name : <></>}
                                         {user ? user.fristname : <></>}
-                                        {user ? user.lastname : <></>}
                                     </td>
                                     <td>{user ? user.email : <></>}</td>
                                     <td>{user ? user.created_at : <></>}</td>

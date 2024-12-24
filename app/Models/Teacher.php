@@ -9,5 +9,10 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Teacher extends Authenticable
 {
-    use HasApiTokens, HasFactory,SoftDeletes;
+    use HasApiTokens, HasFactory, SoftDeletes;
+    protected $appends = ['role'];
+    public function getRoleAttribute()
+    {
+        return 'teacher';
+    }
 }

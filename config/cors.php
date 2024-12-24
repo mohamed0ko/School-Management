@@ -2,22 +2,21 @@
 
 return [
 
-    'paths' => ['*'], // السماح بجميع المسارات
+    'paths' => ['*'],
 
-    'allowed_methods' => ['*'], // السماح بجميع الطرق
+    'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        env('FRONTEND_URL', 'http://localhost:3000'), // رابط تطبيق React الأساسي
-
+        env('FRONTEND_URL', 'http://localhost:3000'),
     ],
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['*'], // السماح بجميع الرؤوس
+    'allowed_headers' => ['*'],
 
     'exposed_headers' => [],
 
     'max_age' => 0,
 
-    'supports_credentials' => true, // السماح باستخدام ملفات تعريف الارتباط
+    'supports_credentials' => true,
 ];
