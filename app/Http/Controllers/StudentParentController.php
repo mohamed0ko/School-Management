@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentParent;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreStudentParentRequest;
+use App\Http\Requests\UpdateStudentParentRequest;
+use App\Http\Resources\StudentParentResource;
+use DateTime;
 
 class StudentParentController extends Controller
 {
@@ -18,13 +21,17 @@ class StudentParentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreStudentParentRequest $request)
     {
-        //
+        $forms = $request->validated();
+        $forms['last_login_date'] = new DateTime();
+        $parent = StudentParent::create($forms);
+        return new StudentParentResource($parent);
     }
 
+
     /**
-     * Display the specified resource.
+     * Display the specified resource. 
      */
     public function show(StudentParent $studentParent)
     {
@@ -34,7 +41,7 @@ class StudentParentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, StudentParent $studentParent)
+    public function update(UpdateStudentParentRequest $request, StudentParent $studentParent)
     {
         //
     }

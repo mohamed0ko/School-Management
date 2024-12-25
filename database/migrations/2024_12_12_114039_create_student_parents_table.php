@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('student_parents', function (Blueprint $table) {
             $table->id();
-            $table->string('fristname',50);
-            $table->string('lastname',50);
+            $table->string('fristname', 50);
+            $table->string('lastname', 50);
             $table->dateTime('date_of_birth');
             $table->dateTime('last_login_date');
-            $table->enum('gender',['m','f']);
-            $table->enum('bloode_type',['O-','O+','A-','A+','B-','B+','AB-','AB+',]);
+            $table->enum('gender', ['m', 'f']);
+            $table->string('bloode_type');
             $table->string('address');
-            $table->string('phone',10)->unique();
-            $table->string('email',60)->unique();
+            $table->string('phone', 10)->unique();
+            $table->string('email', 60)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->softDeletes();
