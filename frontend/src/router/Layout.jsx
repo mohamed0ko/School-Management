@@ -5,13 +5,15 @@ import Content from "../components/Content";
 
 function Layout() {
     return (
-        <>
+        <div>
             <Header />
             <div>
-                <Content /> <br />
+                <div style={{ height: "100vh" }}>
+                    <Content />
+                </div>
                 <Footer />
             </div>
-        </>
+        </div>
     );
 }
 export default Layout;

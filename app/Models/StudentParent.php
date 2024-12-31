@@ -16,7 +16,17 @@ class StudentParent extends Model
         'address',
         'phone',
         'email',
+        'password',
 
 
+    ];
+    protected $hidden = [
+        'password',
+        'last_login_date',
+        "email_verified_at",
+        "remember_token",
+        "deleted_at",
+        "created_at",
+        "updated_at",
     ];
 }

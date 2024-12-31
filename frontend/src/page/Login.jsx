@@ -4,7 +4,8 @@ import { useAuthContext } from "../api/ContextAuth";
 import StudentsApi from "../servies/api/students/students";
 
 function Login() {
-    const { login, setAuthenticated, authenticated } = useAuthContext();
+    const { login, setAuthenticated, authenticated, setToken } =
+        useAuthContext();
     const [error, setError] = useState({ email: "", password: "" });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
@@ -31,30 +32,26 @@ function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (isSubmitting) return; // منع التكرار
-        setIsSubmitting(true); // تعيين حالة الإرسال
+        if (isSubmitting) return;
+        setIsSubmitting(true);
 
-        // إعادة تعيين الأخطاء
         setError({ email: "", password: "" });
 
-        // الحصول على رمز CSRF
         StudentsApi.getCsrfToken()
             .then(() => {
-                // محاولة تسجيل الدخول
                 return StudentsApi.login(user);
             })
             .then((response) => {
                 const { status, data } = response;
 
                 if (status === 200) {
-                    // تحديد المصادقة
+                    setToken(data.token);
+                    console.log(data.token);
                     setAuthenticated(true);
-
-                    // التوجيه بناءً على دور المستخدم
                     const { role } = data.user;
                     switch (role) {
                         case "admin":
-                            navigate("/AdminDashpored/admin");
+                            navigate("/AdminDashpored");
                             break;
                         case "student":
                             navigate("/SutedentDashpored");
@@ -67,7 +64,6 @@ function Login() {
                             break;
                     }
                 } else {
-                    // معالجة الأخطاء القادمة من الخادم
                     const errors = data.errors || {};
                     setError({
                         email: errors.email || "",
@@ -76,22 +72,20 @@ function Login() {
                 }
             })
             .catch((error) => {
-                // معالجة الخطأ في حالة الفشل
                 console.error("حدث خطأ أثناء تسجيل الدخول:", error);
                 setError({
                     email: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
-                    password: "",
+                    password: "kkkkk",
                 });
             })
             .finally(() => {
-                // إنهاء حالة الإرسال
                 setIsSubmitting(false);
             });
     };
 
     return (
-        <div style={{ width: "50%", margin: "auto" }}>
-            <form onSubmit={handleSubmit}>
+        <div style={{ width: "50%", margin: " auto" }}>
+            <form onSubmit={handleSubmit} style={{ marginTop: "80px" }}>
                 <div className="form-group">
                     <label htmlFor="email">Email address</label>
                     <input

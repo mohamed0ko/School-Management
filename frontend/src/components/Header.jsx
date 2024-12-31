@@ -62,12 +62,12 @@ export default function Header() {
                                 <div className="btn-group">
                                     <button
                                         type="button"
-                                        className="btn btn- dropdown-toggle"
+                                        className="btn btn- dropdown-toggle "
                                         data-toggle="dropdown"
                                         aria-haspopup="true"
                                         aria-expanded="false"
                                     >
-                                        <i className="fa-solid fa-user"></i>
+                                        <i className="fa-solid fa-user "></i>
                                         &nbsp;
                                         {user.fristname}
                                         {user.name}

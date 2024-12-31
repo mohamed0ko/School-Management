@@ -14,7 +14,7 @@ const StudentsApi = {
     },
 
     getUser: async () => {
-        return await axiosClient.get("/api/user");
+        return await axiosClient.get("/api/admin");
     },
 };
 export default StudentsApi;

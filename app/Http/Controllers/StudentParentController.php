@@ -7,6 +7,7 @@ use App\Http\Requests\StoreStudentParentRequest;
 use App\Http\Requests\UpdateStudentParentRequest;
 use App\Http\Resources\StudentParentResource;
 use DateTime;
+use Illuminate\Support\Facades\Hash;
 
 class StudentParentController extends Controller
 {
@@ -15,7 +16,7 @@ class StudentParentController extends Controller
      */
     public function index()
     {
-        //
+        return StudentParentResource::collection(StudentParent::all());
     }
 
     /**
@@ -23,11 +24,21 @@ class StudentParentController extends Controller
      */
     public function store(StoreStudentParentRequest $request)
     {
+
         $forms = $request->validated();
+
+        $forms['password'] = bcrypt($forms['password']);
+
+
         $forms['last_login_date'] = new DateTime();
+
+
         $parent = StudentParent::create($forms);
+
         return new StudentParentResource($parent);
     }
+
+
 
 
     /**

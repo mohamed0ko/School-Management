@@ -9,6 +9,7 @@ export const AuthContext = createContext({
     setUser: () => {},
     logout: () => {},
     setAuthenticated: () => {},
+    setToken: () => {},
     login: (user) => {},
 });
 
@@ -30,12 +31,16 @@ export const ContextProvider = ({ children }) => {
         _setAuthenticated(isAuthenticated);
         window.localStorage.setItem("AUTHENTICATED", isAuthenticated);
     };
+    const setToken = (token) => {
+        window.localStorage.setItem("token", token);
+    };
 
     return (
         <AuthContext.Provider
             value={{
                 user,
                 setUser,
+                setToken,
                 setAuthenticated,
                 authenticated,
                 login,
