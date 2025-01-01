@@ -1,17 +1,19 @@
 import { Route, Routes } from "react-router-dom";
 import { ContextProvider } from "./api/ContextAuth";
 import "./Bootstrap.min.css";
+import "./index.css";
 import Register from "./page/Register";
 import Home from "./page/Home";
 import Users from "./page/Users";
 import Layout from "./router/Layout";
 import Login from "./page/Login";
-import SutedentDashpored from "./page/SutedentDashpored";
-import AdminDashpored from "./page/AdminDashpored";
-import TeacherDashpored from "./page/TeacherDashpored";
-import ParentCreate from "./page/ParentCreate";
-import ManageParent from "./page/ManageParent";
-import ListParent from "./page/ListParent";
+
+import AdminParentList from "./page/admin/AdminParentList";
+import AdminParentManage from "./page/admin/AdminParentManage";
+import AdminParentCreate from "./page/admin/AdminParentCreate";
+import SutedentDashpored from "./page/students/SutedentDashpored";
+import TeacherDashpored from "./page/teacher/TeacherDashpored";
+import AdminDashpored from "./page/admin/AdminDashpored";
 
 function App() {
     return (
@@ -38,16 +40,16 @@ function App() {
                             <Route index path="admin" element={<Users />} />
                             <Route
                                 path="ManageParent"
-                                element={<ManageParent />}
+                                element={<AdminParentManage />}
                             >
-                                <Route index element={<ListParent />} />
+                                <Route index element={<AdminParentList />} />
                                 <Route
                                     path="ParentCreate"
-                                    element={<ParentCreate />}
+                                    element={<AdminParentCreate />}
                                 />
                                 <Route
                                     path="ListParent"
-                                    element={<ListParent />}
+                                    element={<AdminParentList />}
                                 />
                             </Route>
                         </Route>

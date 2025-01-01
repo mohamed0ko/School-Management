@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { z } from "zod";
 import { toast, ToastContainer } from "react-toastify";
-import ParentApi from "../servies/api/Parent/Parent";
+import ParentApi from "../../servies/api/Parent/ParentApi";
 
 const schema = z.object({
     fristname: z
@@ -31,7 +31,7 @@ const schema = z.object({
     password: z.string(),
 });
 
-function PrentCreate() {
+function AdminParentCreate() {
     const [formData, setFormData] = useState({
         fristname: "",
         lastname: "",
@@ -293,7 +293,7 @@ function PrentCreate() {
                 {/* Submit */}
                 <div className="col-12">
                     <button className="btn btn-primary" type="submit">
-                        Submit
+                        Create
                     </button>
                 </div>
             </form>
@@ -301,4 +301,4 @@ function PrentCreate() {
     );
 }
 
-export default PrentCreate;
+export default AdminParentCreate;

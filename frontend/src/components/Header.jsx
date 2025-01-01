@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../api/ContextAuth";
 import StudentsApi from "../servies/api/students/students";
-
 export default function Header() {
     const { user, logout } = useAuthContext();
     const navigate = useNavigate();
@@ -35,7 +34,7 @@ export default function Header() {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div
-                        className="collapse navbar-collapse justify-content-end"
+                        className="collapse navbar-collapse justify-content-end one"
                         id="navbarCollapse"
                     >
                         <div className="navbar-nav font-weight-bold py-0">

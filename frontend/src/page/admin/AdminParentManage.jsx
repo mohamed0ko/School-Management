@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 
-const ManageParent = () => {
+const AdminParentManage = () => {
     return (
         <div>
             <div className="d-grid gap-2 d-md-block">
@@ -20,4 +20,4 @@ const ManageParent = () => {
     );
 };
 
-export default ManageParent;
+export default AdminParentManage;

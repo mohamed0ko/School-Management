@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useAuthContext } from "../api/ContextAuth";
-import StudentsApi from "../servies/api/students/students";
+import { useAuthContext } from "../../api/ContextAuth";
+import StudentsApi from "../../servies/api/students/students";
 export default function AdminDashpored() {
     const { setUser, setAuthenticated, logout, authenticated } =
         useAuthContext();
