@@ -7,12 +7,8 @@ function Layout() {
     return (
         <div>
             <Header />
-            <div>
-                <div style={{ height: "100vh" }}>
-                    <Content />
-                </div>
-                <Footer />
-            </div>
+            <Content />
+            <Footer />
         </div>
     );
 }

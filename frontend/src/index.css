@@ -67,3 +67,32 @@
 .one {
     visibility: visible;
 }
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Prevent horizontal scrollbar */
+}
+.body {
+    overflow-x: hidden;
+}
+
+table {
+    width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    min-width: 100px; /* Adjust this value as needed */ /* Add some padding for better readability */
+    word-wrap: break-word; /* Allow content to wrap */
+    white-space: normal; /* Allow content to wrap */
+}
+
+th {
+    white-space: normal; /* Allow headers to wrap */
+}
+
+td {
+    white-space: normal;
+    overflow-x: hidden; /* Allow cell content to wrap */
+}

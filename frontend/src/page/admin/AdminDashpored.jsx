@@ -3,6 +3,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuthContext } from "../../api/ContextAuth";
 import StudentsApi from "../../servies/api/students/students";
+import Register from "../Register";
 export default function AdminDashpored() {
     const { setUser, setAuthenticated, logout, authenticated } =
         useAuthContext();
@@ -29,7 +30,7 @@ export default function AdminDashpored() {
     }
 
     return (
-        <div className="container-fluid one">
+        /*  <div className="container-fluid one">
             <div className="row flex-nowrap">
                 <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
                     <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
@@ -56,35 +57,20 @@ export default function AdminDashpored() {
                         <hr />
                     </div>
                 </div>
-                <div style={{ width: "100%" }} className="col py-3 tow">
-                    {/*   <div>
-                        <table className="table">
-                            <thead className="thead-light">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">NAME</th>
-                                    <th scope="col">EMAIL</th>
-                                    <th scope="col">DATE</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        {user ? user.id : <></>}
-                                    </th>
-                                    <td>
-                                        {user ? user.name : <></>}
-                                        {user ? user.fristname : <></>}
-                                    </td>
-                                    <td>{user ? user.email : <></>}</td>
-                                    <td>{user ? user.created_at : <></>}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div> */}
+                <div style={{ width: "100vh" }} className="col py-3 tow">
                     <Outlet />
                 </div>
             </div>
-        </div>
+        </div> */
+        <main className={"mx-auto space-y-4 py-4"}>
+            <div className="flex">
+                <div className={"w-24 md:w-2/12 border mr-2 rounded-l"}>
+                    <Register />
+                </div>
+                <div className={"w-100 md:w-2/12 border mr-2  rounded-l"}>
+                    <Outlet />
+                </div>
+            </div>
+        </main>
     );
 }

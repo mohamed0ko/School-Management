@@ -7,5 +7,8 @@ const ParentApi = {
     all: async () => {
         return await axiosClient.get("/api/admin/parent");
     },
+    delete: async (id) => {
+        return await axiosClient.delete(`/api/admin/parent/${id}`);
+    },
 };
 export default ParentApi;
