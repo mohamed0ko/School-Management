@@ -4,7 +4,9 @@ import { useEffect } from "react";
 
 import StudentsApi from "../../servies/api/students/students";
 import { useAuthContext } from "../../api/ContextAuth";
-export default function TeacherDashpored() {
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+export default function TeacherDashpored({ className }) {
     const { setUser, setAuthenticated, logout, authenticated, user } =
         useAuthContext();
     const navigate = useNavigate();
@@ -30,57 +32,36 @@ export default function TeacherDashpored() {
     }
 
     return (
-        <div className="container-fluid one">
-            <div className="row flex-nowrap">
-                <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-secondary">
-                    <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                        <a
-                            href="/"
-                            className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-                        >
-                            <span className="fs-5 d-none d-sm-inline">
-                                Menu
-                            </span>
-                        </a>
-                        <ul
-                            className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-                            id="menu"
-                        >
-                            <li className="nav-item">
-                                <Link
-                                    to="/TeacherDashpored/teacher"
-                                    className="nav-link align-middle px-0"
-                                >
-                                    teacher
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div style={{ width: "100%" }} className="col py-3 tow">
-                    <div className="container-fluid bg-primary ">
-                        <div
-                            className="d-flex flex-column align-items-center justify-content-center"
-                            style={{ minHeight: "400px" }}
-                        >
-                            <h3 className="display-3 font-weight-bold text-white">
-                                Our {user ? user.name : <></>}
-                                {user ? user.fristname : <></>}
-                            </h3>
-                            <div className="d-inline-flex text-white">
-                                <p className="m-0">
-                                    <a className="text-white" href="">
-                                        Home
-                                    </a>
-                                </p>
-                                <p className="m-0 px-2">/</p>
-                                <p className="m-0">Our Classes</p>
+        <main className={"mx-auto space-y-4 py-4"}>
+            <div className="flex">
+                <div className={"w-24 md:w-2/12 border mr-2 rounded-l"}>
+                    <div className={cn("pb-12", className)}>
+                        <div>
+                            <div className="px-3 py-2">
+                                <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+                                    <Link
+                                        className="nav-link align-middle px-0"
+                                        to="/TeacherDashpored"
+                                    >
+                                        Student Dashpored
+                                    </Link>
+                                </h2>
+                                <div className="space-y-1">
+                                    <Button
+                                        variant="ghost"
+                                        className="w-full justify-start"
+                                    >
+                                        hiii
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className={"w-100 md:w-2/12 border mr-2  rounded-l"}>
                     <Outlet />
                 </div>
             </div>
-        </div>
+        </main>
     );
 }

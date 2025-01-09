@@ -10,10 +10,10 @@ import Login from "./page/Login";
 
 import AdminParentList from "./page/admin/AdminParentList";
 import AdminParentManage from "./page/admin/AdminParentManage";
-import AdminParentCreate from "./page/admin/AdminParentCreate";
 import SutedentDashpored from "./page/students/SutedentDashpored";
 import TeacherDashpored from "./page/teacher/TeacherDashpored";
 import AdminDashpored from "./page/admin/AdminDashpored";
+import AdminParentUpserForm from "./page/admin/AdminParentUpserForm";
 
 function App() {
     return (
@@ -45,7 +45,7 @@ function App() {
                                 <Route index element={<AdminParentList />} />
                                 <Route
                                     path="ParentCreate"
-                                    element={<AdminParentCreate />}
+                                    element={<AdminParentUpserForm />}
                                 />
                                 <Route
                                     path="ListParent"
@@ -59,6 +59,7 @@ function App() {
                             path="/TeacherDashpored"
                             element={<TeacherDashpored />}
                         >
+                            <Route index element={<Users />} />
                             <Route index path="teacher" element={<Users />} />
                         </Route>
                     </Route>

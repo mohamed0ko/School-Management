@@ -1,16 +1,14 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
 } from "../../components/ui/tabs";
-import { Separator } from "../../components/ui/separator";
-import { ScrollArea, ScrollBar } from "../../components/ui/scroll-area";
-import { Button } from "../../components/ui/button";
 import AdminParentList from "./AdminParentList";
-import AdminParentCreate from "./AdminParentCreate";
+import ParentApi from "../../servies/api/Parent/ParentApi";
+import AdminParentUpserForm from "./AdminParentUpserForm";
 
 const AdminParentManage = () => {
     return (
@@ -57,7 +55,15 @@ const AdminParentManage = () => {
                                         >
                                             <div className="flex items-center justify-between">
                                                 <div className="space-y-1">
-                                                    <AdminParentCreate />
+                                                    <AdminParentUpserForm
+                                                        SubmitCreate={(
+                                                            formData
+                                                        ) =>
+                                                            ParentApi.create(
+                                                                formData
+                                                            )
+                                                        }
+                                                    />
                                                 </div>
                                             </div>
                                         </TabsContent>

@@ -34,8 +34,12 @@ class StudentParentController extends Controller
 
 
         $parent = StudentParent::create($forms);
+        $response = new StudentParentResource($parent);
 
-        return new StudentParentResource($parent);
+        return response()->json([
+            'parent' => $response,
+            'message' => __('Parent created successfully')
+        ]);
     }
 
 
@@ -52,17 +56,18 @@ class StudentParentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStudentParentRequest $request, StudentParent $studentParent)
+    public function update(UpdateStudentParentRequest $request, StudentParent $parent)
     {
-        //
+        $parent->update($request->validated());
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(StudentParent $studentParent)
+    public function destroy(StudentParent $parent)
     {
-        $studentParent->Delete();
-        return new StudentParentResource($studentParent);
+
+        $parent->delete();
+        return new StudentParentResource($parent);
     }
 }

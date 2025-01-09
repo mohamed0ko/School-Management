@@ -3,7 +3,9 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import StudentsApi from "../../servies/api/students/students";
 import { useAuthContext } from "../../api/ContextAuth";
-export default function SutedentDashpored() {
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+export default function SutedentDashpored({ className }) {
     const { setUser, setAuthenticated, logout, authenticated } =
         useAuthContext();
     const navigate = useNavigate();
@@ -29,49 +31,36 @@ export default function SutedentDashpored() {
     }
 
     return (
-        <div id="" className="container-fluid ">
-            <div className="row flex-nowrap">
-                <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-secondary">
-                    <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                        <a
-                            href="/"
-                            className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-                        >
-                            <span className="fs-5 d-none d-sm-inline">
-                                Menu
-                            </span>
-                        </a>
-                        <ul
-                            className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-                            id="menu"
-                        >
-                            <li className="nav-item">
-                                <Link
-                                    to="/SutedentDashpored/student"
-                                    className="nav-link align-middle px-0"
-                                >
-                                    Student
-                                </Link>
-                            </li>
-
-                            <li>
-                                <a
-                                    href="#"
-                                    className="nav-link px-0 align-middle"
-                                >
-                                    <i className="fs-4 bi-table"></i>{" "}
-                                    <span className="ms-1 d-none d-sm-inline">
-                                        Orders
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <Outlet />
+        <main className={"mx-auto space-y-4 py-4"}>
+            <div className="flex">
+                <div className={"w-24 md:w-2/12 border mr-2 rounded-l"}>
+                    <div className={cn("pb-12", className)}>
+                        <div>
+                            <div className="px-3 py-2">
+                                <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+                                    <Link
+                                        className="nav-link align-middle px-0"
+                                        to="/SutedentDashpored"
+                                    >
+                                        Student Dashpored
+                                    </Link>
+                                </h2>
+                                <div className="space-y-1">
+                                    <Button
+                                        variant="ghost"
+                                        className="w-full justify-start"
+                                    >
+                                        hiii
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div className={"w-100 md:w-2/12 border mr-2  rounded-l"}>
+                    <Outlet />
+                </div>
             </div>
-        </div>
+        </main>
     );
 }

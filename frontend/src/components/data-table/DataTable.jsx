@@ -61,7 +61,12 @@ export function DataTable({ columns, data }) {
                 className="table-container rounded-md border"
                 style={{ overflowX: "auto" }}
             >
-                <Table style={{ width: "100%", tableLayout: "fixed" }}>
+                <Table
+                    style={{
+                        width: "100%",
+                        tableLayout: "fixed",
+                    }}
+                >
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>

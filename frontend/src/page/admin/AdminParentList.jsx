@@ -4,6 +4,15 @@ import { DataTable } from "../../components/data-table/DataTable";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet";
+
+import {
     AlertDialog,
     AlertDialogAction,
     AlertDialogCancel,
@@ -16,6 +25,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { DataTableColumnHeader } from "../../components/data-table/DataTableColumnHeader ";
 import { toast, ToastContainer } from "react-toastify";
+import AdminParentUpserForm from "./AdminParentUpserForm";
 
 export default function AdminParentList() {
     const DeletParent = async (id) => {
@@ -119,6 +129,7 @@ export default function AdminParentList() {
 
             header: ({ column }) => {
                 const isAsc = column.getIsSorted() === "asc";
+                const date_of_birth = new Date().toLocaleDateString();
                 return (
                     <Button
                         className="px-1 py-0"
@@ -277,44 +288,91 @@ export default function AdminParentList() {
             id: "actions",
             cell: ({ row }) => {
                 const { id, lastname, fristname } = row.original;
+                const [isOpen, setIsOpen] = useState(false);
 
                 return (
-                    <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                            <Button size={"sm"} variant="outline">
-                                Delete
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                    Are you absolutely sure to delete &nbsp;
-                                    <span className={"font-bold"}>
-                                        {fristname}
-                                        &nbsp;
+                    <div>
+                        <Sheet
+                            open={isOpen}
+                            onOpenChange={setIsOpen}
+                            style={{ overflow: "auto" }}
+                        >
+                            <SheetTrigger>
+                                <Button size={"sm"} variant="outline">
+                                    update
+                                </Button>
+                            </SheetTrigger>
+                            <SheetContent
+                                style={{
+                                    overflow: "auto",
+                                    textAlign: "center",
+                                }}
+                            >
+                                <SheetHeader>
+                                    <SheetTitle>
+                                        Update Parent &nbsp; {fristname} &nbsp;{" "}
                                         {lastname}
-                                    </span>
-                                    ?
-                                </AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    This action cannot be undone. This will
-                                    permanently delete your account and remove
-                                    your data from our servers.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                    className="mt-2"
-                                    onClick={() => {
-                                        DeletParent(id);
-                                    }}
-                                >
-                                    Continue
-                                </AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
+                                    </SheetTitle>
+                                    <SheetDescription>
+                                        Make changes to your profile here. Click
+                                        save when you're done.
+                                        <div style={{ overflow: "auto" }}>
+                                            <AdminParentUpserForm
+                                                value={row.original}
+                                                SubmitCreate={(FormData) =>
+                                                    ParentApi.update(
+                                                        id,
+                                                        FormData
+                                                    ).then(() =>
+                                                        setIsOpen(false)
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </SheetDescription>
+                                </SheetHeader>
+                            </SheetContent>
+                        </Sheet>
+
+                        <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                                <Button size={"sm"} variant="outline">
+                                    Delete
+                                </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>
+                                        Are you absolutely sure to delete &nbsp;
+                                        <span className={"font-bold"}>
+                                            {fristname}
+                                            &nbsp;
+                                            {lastname}
+                                        </span>
+                                        ?
+                                    </AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        This action cannot be undone. This will
+                                        permanently delete your account and
+                                        remove your data from our servers.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>
+                                        Cancel
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                        className="mt-2"
+                                        onClick={() => {
+                                            DeletParent(id);
+                                        }}
+                                    >
+                                        Continue
+                                    </AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
+                    </div>
                 );
             },
         },

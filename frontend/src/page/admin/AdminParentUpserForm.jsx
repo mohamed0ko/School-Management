@@ -31,7 +31,7 @@ const schema = z.object({
     password: z.string(),
 });
 
-function AdminParentCreate() {
+function AdminParentUpserForm({ SubmitCreate, value }) {
     const [formData, setFormData] = useState({
         fristname: "",
         lastname: "",
@@ -42,6 +42,7 @@ function AdminParentCreate() {
         phone: "",
         email: "",
         password: "",
+        ...value,
     });
 
     const [errors, setErrors] = useState({});
@@ -53,28 +54,26 @@ function AdminParentCreate() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        /*   setIsSubmitting(true); */ // تفعيل حالة التحميل
-        setErrors({}); // مسح الأخطاء السابقة
-
-        // التحقق باستخدام Zod
+        setErrors({});
         const result = schema.safeParse(formData);
         if (!result.success) {
-            // استخراج الأخطاء إذا لم ينجح التحقق
             const formattedErrors = result.error.errors.reduce((acc, error) => {
                 acc[error.path[0]] = error.message;
                 return acc;
             }, {});
             setErrors(formattedErrors);
-            /*   setIsSubmitting(false); */ // إلغاء حالة التحميل
-            return; // إنهاء العملية هنا
+            return;
         }
-
-        // إذا كان التحقق ناجحًا
         try {
-            const response = await ParentApi.create(formData);
-            if (response.status === 201) {
+            const response = await SubmitCreate(formData);
+            if (response.status === 200) {
+                if (value == "create") {
+                    toast.success("Parent created successfully!");
+                } else {
+                    toast.success("Parent Update successfully!");
+                }
                 console.log(response.data);
-                toast.success("Parent created successfully!");
+
                 setFormData({
                     fristname: "",
                     lastname: "",
@@ -99,7 +98,6 @@ function AdminParentCreate() {
             if (error.response.status === 422) {
                 setErrors({ exists: "Email or Phone already exists" });
             }
-            // إلغاء حالة التحميل
         }
     };
 
@@ -113,7 +111,7 @@ function AdminParentCreate() {
                     </p>
                 )}
                 <ToastContainer />
-                <div className="col-md-6">
+                <div className="col-md-17">
                     <label htmlFor="fristname" className="form-label">
                         fristname
                     </label>
@@ -131,7 +129,8 @@ function AdminParentCreate() {
                 </div>
 
                 {/* Lastname */}
-                <div className="col-md-6">
+                <br />
+                <div className="col-md-17">
                     <label htmlFor="lastname" className="form-label">
                         Lastname
                     </label>
@@ -149,7 +148,8 @@ function AdminParentCreate() {
                 </div>
 
                 {/* Date of Birth */}
-                <div className="col-md-6">
+
+                <div className="col-md-17">
                     <label htmlFor="date_of_birth" className="form-label">
                         Date of Birth
                     </label>
@@ -167,7 +167,7 @@ function AdminParentCreate() {
                 </div>
 
                 {/* Blood Type */}
-                <div className="col-md-6">
+                <div className="col-md-17">
                     <label className="form-label">Blood Type</label>
                     <select
                         className="form-select"
@@ -190,7 +190,7 @@ function AdminParentCreate() {
                 </div>
 
                 {/* Address */}
-                <div className="col-md-6">
+                <div className="col-md-17">
                     <label htmlFor="address" className="form-label">
                         Address
                     </label>
@@ -208,7 +208,7 @@ function AdminParentCreate() {
                 </div>
 
                 {/* Phone */}
-                <div className="col-md-6">
+                <div className="col-md-17">
                     <label htmlFor="phone" className="form-label">
                         Phone
                     </label>
@@ -226,7 +226,7 @@ function AdminParentCreate() {
                 </div>
 
                 {/* Email */}
-                <div className="col-md-6">
+                <div className="col-md-17">
                     <label htmlFor="email" className="form-label">
                         Email
                     </label>
@@ -244,7 +244,7 @@ function AdminParentCreate() {
                 </div>
 
                 {/* Password */}
-                <div className="col-md-6">
+                <div className="col-md-17">
                     <label htmlFor="password" className="form-label">
                         Password
                     </label>
@@ -261,7 +261,7 @@ function AdminParentCreate() {
                     )}
                 </div>
                 {/* Gender */}
-                <div className="col-md-6">
+                <div className="col-md-17">
                     <label>Gender</label>
                     <div className="form-check">
                         <input
@@ -291,9 +291,9 @@ function AdminParentCreate() {
                 </div>
 
                 {/* Submit */}
-                <div className="col-12">
+                <div className="col-md-17">
                     <button className="btn btn-primary" type="submit">
-                        Create
+                        {value ? "Update" : "Create"}
                     </button>
                 </div>
             </form>
@@ -301,4 +301,4 @@ function AdminParentCreate() {
     );
 }
 
-export default AdminParentCreate;
+export default AdminParentUpserForm;
