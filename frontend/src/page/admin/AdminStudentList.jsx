@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ParentApi from "../../servies/api/Parent/ParentApi";
 import { DataTable } from "../../components/data-table/DataTable";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,15 +24,15 @@ import {
 } from "@/components/ui/alert-dialog";
 import { DataTableColumnHeader } from "../../components/data-table/DataTableColumnHeader ";
 import { toast, ToastContainer } from "react-toastify";
-import AdminParentUpserForm from "./AdminParentUpserForm";
+import StudentApi from "../../servies/api/Student/StudentApi";
+import AdminStudentUnserForm from "../admin/AdminStudentUnserForm";
 
-export default function AdminParentList() {
+export default function AdminStudentList() {
     const [data, setData] = useState([]);
-
     const DeletParent = async (id) => {
         const deletingloading = toast.loading("Deleting parent...");
         try {
-            const { status } = await ParentApi.delete(id);
+            const { status } = await StudentApi.delete(id);
             if (status === 200) {
                 toast.dismiss(deletingloading);
                 setData((prevData) =>
@@ -45,7 +44,7 @@ export default function AdminParentList() {
             toast.error("Failed to delete parent.");
         }
     };
-    const ParentListColum = [
+    const StudentListColum = [
         {
             accessorKey: "id",
             header: ({ column }) => {
@@ -235,33 +234,6 @@ export default function AdminParentList() {
             },
         },
         {
-            accessorKey: "student_parent_id",
-
-            header: ({ column }) => {
-                const isAsc = column.getIsSorted() === "asc";
-                return (
-                    <Button
-                        className="px-1 py-0"
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(isAsc)}
-                    >
-                        Address
-                        {isAsc ? (
-                            <ArrowUp className="ml-2 h-4 w-4" />
-                        ) : (
-                            <ArrowDown className="ml-2 h-4 w-4" />
-                        )}
-                    </Button>
-                );
-            },
-            cell: ({ row }) => {
-                const lastname = row.getValue("student_parent_id");
-                return (
-                    <div className="text-center font-medium">{lastname}</div>
-                );
-            },
-        },
-        {
             accessorKey: "phone",
 
             header: ({ column }) => {
@@ -313,6 +285,36 @@ export default function AdminParentList() {
                 return <div className="text-center font-medium">{email}</div>;
             },
         },
+
+        {
+            accessorKey: "formatted_updated_at",
+
+            header: ({ column }) => {
+                const isAsc = column.getIsSorted() === "asc";
+                return (
+                    <Button
+                        className="px-1 py-0"
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(isAsc)}
+                    >
+                        Last Updated
+                        {isAsc ? (
+                            <ArrowUp className="ml-2 h-4 w-4" />
+                        ) : (
+                            <ArrowDown className="ml-2 h-4 w-4" />
+                        )}
+                    </Button>
+                );
+            },
+            cell: ({ row }) => {
+                const student_parent = row.getValue("formatted_updated_at");
+                return (
+                    <div className="text-center font-medium">
+                        {student_parent}
+                    </div>
+                );
+            },
+        },
         {
             id: "actions",
             cell: ({ row }) => {
@@ -346,28 +348,29 @@ export default function AdminParentList() {
                                         Make changes to your profile here. Click
                                         save when you're done.
                                         <div style={{ overflow: "auto" }}>
-                                            <AdminParentUpserForm
+                                            <AdminStudentUnserForm
                                                 value={row.original}
                                                 SubmitCreate={(FormData) => {
                                                     const promise =
-                                                        ParentApi.update(
+                                                        StudentApi.update(
                                                             id,
                                                             FormData
                                                         );
                                                     promise.then((response) => {
-                                                        const { parent } =
+                                                        const { student } =
                                                             response.data;
-                                                        const elments =
+                                                        console.log(data);
+                                                        const eelments =
                                                             data.map((item) => {
                                                                 if (
                                                                     item.id ===
                                                                     id
                                                                 ) {
-                                                                    return parent;
+                                                                    return student;
                                                                 }
                                                                 return item;
                                                             });
-                                                        setData(elments);
+                                                        setData(eelments);
                                                         setIsOpen(false);
                                                     });
                                                     return promise;
@@ -424,13 +427,13 @@ export default function AdminParentList() {
     ];
 
     useEffect(() => {
-        ParentApi.all().then(({ data }) => setData(data.data));
+        StudentApi.all().then(({ data }) => setData(data.data));
     }, []);
 
     return (
         <div className="">
             <ToastContainer />
-            <DataTable columns={ParentListColum} data={data} />
+            <DataTable columns={StudentListColum} data={data} />
         </div>
     );
 }

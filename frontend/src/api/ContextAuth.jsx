@@ -1,8 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { axiosClient } from "./axios";
-import { useNavigate } from "react-router-dom";
-import StudentsApi from "../servies/api/students/students";
-
+import { createContext, useContext, useState } from "react";
+import UserApi from "../servies/api/User/UserApi";
 export const AuthContext = createContext({
     user: {},
     authenticated: false,
@@ -19,8 +16,8 @@ export const ContextProvider = ({ children }) => {
         "true" === window.localStorage.getItem("AUTHENTICATED")
     );
     const login = async (user) => {
-        await StudentsApi.getCsrfToken();
-        return StudentsApi.login(user);
+        await UserApi.getCsrfToken();
+        return UserApi.login(user);
     };
 
     const logout = () => {

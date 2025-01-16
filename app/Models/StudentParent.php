@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Sanctum\HasApiTokens;
 
-class StudentParent extends Model
+class StudentParent extends  Authenticable
 {
-    use SoftDeletes;
+    use HasApiTokens, HasFactory, SoftDeletes;
     protected $fillable = [
         'fristname',
         'lastname',
@@ -34,4 +36,9 @@ class StudentParent extends Model
     protected $casts = [
         'date_of_birth' => 'date:Y-m-d',
     ];
+    protected $appends = ['role'];
+    public function getRoleAttribute()
+    {
+        return 'parent';
+    }
 }

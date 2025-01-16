@@ -1,6 +1,6 @@
 import { axiosClient } from "../../../api/axios";
 
-const StudentsApi = {
+const UserApi = {
     getCsrfToken: async () => {
         return await axiosClient.get("/sanctum/csrf-cookie", {
             baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -17,4 +17,4 @@ const StudentsApi = {
         return await axiosClient.get("/api/me");
     },
 };
-export default StudentsApi;
+export default UserApi;

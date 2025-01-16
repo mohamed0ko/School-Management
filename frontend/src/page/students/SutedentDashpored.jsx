@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import StudentsApi from "../../servies/api/students/students";
-import { useAuthContext } from "../../api/ContextAuth";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import UserApi from "../../servies/api/User/UserApi";
+import { useAuthContext } from "../../api/ContextAuth";
+
 export default function SutedentDashpored({ className }) {
     const { setUser, setAuthenticated, logout, authenticated } =
         useAuthContext();
@@ -14,7 +15,7 @@ export default function SutedentDashpored({ className }) {
     useEffect(() => {
         if (authenticated == true) {
             setIsloding(false);
-            StudentsApi.getUser()
+            UserApi.getUser()
                 .then(({ data }) => {
                     setUser(data);
                     setAuthenticated(true);
@@ -33,7 +34,7 @@ export default function SutedentDashpored({ className }) {
     return (
         <main className={"mx-auto space-y-4 py-4"}>
             <div className="flex">
-                <div className={"w-24 md:w-2/12 border mr-2 rounded-l"}>
+                <div className={"w-25 md:w-2/12 border mr-2 rounded-l"}>
                     <div className={cn("pb-12", className)}>
                         <div>
                             <div className="px-3 py-2">

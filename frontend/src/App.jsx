@@ -14,7 +14,24 @@ import SutedentDashpored from "./page/students/SutedentDashpored";
 import TeacherDashpored from "./page/teacher/TeacherDashpored";
 import AdminDashpored from "./page/admin/AdminDashpored";
 import AdminParentUpserForm from "./page/admin/AdminParentUpserForm";
+import ParentDashpored from "./page/parents/ParentDashpored";
+import AdminSudentManage from "./page/admin/AdminSudentManage";
 
+export const redirectToDashboard = (roleTaype) => {
+    switch (roleTaype) {
+        case "admin":
+            return "/AdminDashpored";
+
+        case "student":
+            return "/SutedentDashpored";
+
+        case "teacher":
+            return "/TeacherDashpored";
+
+        case "parent":
+            return "/ParentDashpored";
+    }
+};
 function App() {
     return (
         <>
@@ -52,9 +69,14 @@ function App() {
                                     element={<AdminParentList />}
                                 />
                             </Route>
+                            <Route
+                                path="ManageStudent"
+                                element={<AdminSudentManage />}
+                            ></Route>
                         </Route>
 
                         {/* end admin */}
+                        {/*  start teacher */}
                         <Route
                             path="/TeacherDashpored"
                             element={<TeacherDashpored />}
@@ -62,6 +84,16 @@ function App() {
                             <Route index element={<Users />} />
                             <Route index path="teacher" element={<Users />} />
                         </Route>
+                        {/*  end teacher  */}
+                        {/*  end parents  */}
+                        <Route
+                            path="/ParentDashpored"
+                            element={<ParentDashpored />}
+                        >
+                            <Route index element={<Users />} />
+                            <Route index path="parent" element={<Users />} />
+                        </Route>
+                        {/*  end parents  */}
                     </Route>
                 </Routes>
             </ContextProvider>

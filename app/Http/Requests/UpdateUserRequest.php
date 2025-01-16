@@ -3,10 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Enum\EnumBlood;
+use App\Models\StudentParent;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateStudentParentRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +27,14 @@ class UpdateStudentParentRequest extends FormRequest
         return [
             'fristname' => 'required|max:55',
             'lastname' => 'required|max:55',
+            'student_parent_id' => Rule::exists(StudentParent::class, 'id'),
             'date_of_birth' => 'required|date',
             'gender' => ['required', Rule::in(['m', 'f'])],
             'bloode_type' => ['required', Rule::enum(EnumBlood::class)],
             'address' => 'required|max:255',
-            'phone' => Rule::unique('student_parents')->ignore($this->id),
-            'email' =>  Rule::unique('student_parents')->ignore($this->id),
-            'password' => 'required|string|min:8',
+            'phone' => 'required|max:10|unique:student_parents',
+            'email' =>  'required|email|unique:student_parents',
+            'password' => 'required',
         ];
     }
 }

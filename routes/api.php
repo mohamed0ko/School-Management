@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentParentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,7 @@ Route::middleware(['auth:sanctum', 'ability:student'])->prefix('student')->group
 Route::middleware(['auth:sanctum', 'ability:admin'])->prefix('admin')->group(static function () {
     Route::apiResources([
         'parent' => StudentParentController::class,
+        'student' => StudentController::class,
 
     ]);
 });

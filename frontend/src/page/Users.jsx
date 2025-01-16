@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuthContext } from "../api/ContextAuth";
-import StudentsApi from "../servies/api/students/students";
+import UserApi from "../servies/api/User/UserApi";
 
 export default function Users() {
     const { setUser, setAuthenticated, user, logout } = useAuthContext();
     const navigate = useNavigate();
 
     useEffect(() => {
-        StudentsApi.getUser()
+        UserApi.getUser()
             .then(({ data }) => {
                 setUser(data);
                 setAuthenticated(true);
@@ -36,7 +36,6 @@ export default function Users() {
                             <tr>
                                 <th scope="row">{user ? user.id : <></>}</th>
                                 <td>
-                                    {user ? user.name : <></>}
                                     {user ? user.fristname : <></>}
                                     {user ? user.lastname : <></>}
                                 </td>

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import { toast, ToastContainer } from "react-toastify";
+import ParentApi from "../../servies/api/Parent/ParentApi";
 
 const schema = z.object({
     fristname: z
@@ -30,11 +31,18 @@ const schema = z.object({
     password: z.string(),
 });
 
-function AdminParentUpserForm({ SubmitCreate, value }) {
+function AdminStudentUnserForm({ SubmitCreate, value }) {
+    const [parents, setParents] = useState([]);
+    useEffect(() => {
+        ParentApi.all(["id", "fristname", "lastname"]).then(({ data }) =>
+            setParents(data.data)
+        );
+    }, []);
     const [formData, setFormData] = useState({
         fristname: "",
         lastname: "",
         date_of_birth: "",
+        student_parent_id: "",
         gender: "",
         bloode_type: "",
         address: "",
@@ -78,6 +86,7 @@ function AdminParentUpserForm({ SubmitCreate, value }) {
                     fristname: "",
                     lastname: "",
                     date_of_birth: "",
+                    student_parent_id: "",
                     gender: "",
                     bloode_type: "",
                     address: "",
@@ -187,6 +196,29 @@ function AdminParentUpserForm({ SubmitCreate, value }) {
                     </select>
                     {errors.bloode_type && (
                         <p style={{ color: "red" }}>{errors.bloode_type}</p>
+                    )}
+                </div>
+                {/* Blood Type */}
+                <div className="col-md-17">
+                    <label className="form-label">Blood Type</label>
+                    <select
+                        className="form-select"
+                        name="student_parent_id"
+                        value={formData.student_parent_id}
+                        onChange={handleChange}
+                    >
+                        <option>Select Parent</option>
+                        {parents.map((parent, key) => (
+                            <option key={key} value={parent.id.toString()}>
+                                {parent.fristname}
+                                {parent.lastname}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.student_parent_id && (
+                        <p style={{ color: "red" }}>
+                            {errors.student_parent_id}
+                        </p>
                     )}
                 </div>
 
@@ -302,4 +334,4 @@ function AdminParentUpserForm({ SubmitCreate, value }) {
     );
 }
 
-export default AdminParentUpserForm;
+export default AdminStudentUnserForm;

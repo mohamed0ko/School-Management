@@ -44,7 +44,7 @@ export function DataTable({ columns, data }) {
 
     return (
         <>
-            <div className="flex items-center py-3">
+            <div className="flex items-center py-3 ">
                 <Input
                     placeholder="Filter emails..."
                     value={table.getColumn("email")?.getFilterValue() ?? ""}
@@ -57,16 +57,8 @@ export function DataTable({ columns, data }) {
                 />
                 <DataTableViewOptions table={table} />
             </div>
-            <div
-                className="table-container rounded-md border"
-                style={{ overflowX: "auto" }}
-            >
-                <Table
-                    style={{
-                        width: "100%",
-                        tableLayout: "fixed",
-                    }}
-                >
+            <div className="table-container rounded-md ">
+                <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>

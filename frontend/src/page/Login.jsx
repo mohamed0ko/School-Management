@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { redirectToDashboard } from "../App";
 import { useAuthContext } from "../api/ContextAuth";
-import StudentsApi from "../servies/api/students/students";
+import UserApi from "../servies/api/User/UserApi";
 
 function Login() {
     const { login, setAuthenticated, authenticated, setToken } =
@@ -37,9 +38,9 @@ function Login() {
 
         setError({ email: "", password: "" });
 
-        StudentsApi.getCsrfToken()
+        UserApi.getCsrfToken()
             .then(() => {
-                return StudentsApi.login(user);
+                return UserApi.login(user);
             })
             .then((response) => {
                 const { status, data } = response;
@@ -49,7 +50,8 @@ function Login() {
                     console.log(data.token);
                     setAuthenticated(true);
                     const { role } = data.user;
-                    switch (role) {
+                    navigate(redirectToDashboard(role));
+                    /*  switch (role) {
                         case "admin":
                             navigate("/AdminDashpored");
                             break;
@@ -59,10 +61,13 @@ function Login() {
                         case "teacher":
                             navigate("/TeacherDashpored");
                             break;
+                        case "parent":
+                            navigate("/ParentDashpored");
+                            break;
                         default:
                             navigate("/Login");
                             break;
-                    }
+                    } */
                 } else {
                     const errors = data.errors || {};
                     setError({

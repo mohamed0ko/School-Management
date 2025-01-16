@@ -1,13 +1,14 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import UserApi from "../servies/api/User/UserApi";
 import { useAuthContext } from "../api/ContextAuth";
-import StudentsApi from "../servies/api/students/students";
+
 export default function Header() {
     const { user, logout } = useAuthContext();
     const navigate = useNavigate();
 
     const logoutColl = async () => {
-        StudentsApi.logout().then(() => {
+        UserApi.logout().then(() => {
             logout();
             navigate("/login");
         });
@@ -67,8 +68,9 @@ export default function Header() {
                                 >
                                     <i className="fa-solid fa-user "></i>
                                     &nbsp;
-                                    {user.fristname}
-                                    {user.name}
+                                    <span style={{ font: "bolde" }}>
+                                        {user.fristname}
+                                    </span>
                                 </button>
                                 <div className="dropdown-menu">
                                     <a className="dropdown-item" href="#">

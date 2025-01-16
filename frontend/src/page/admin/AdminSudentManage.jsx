@@ -1,16 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-    Tabs,
-    TabsContent,
-    TabsList,
-    TabsTrigger,
-} from "../../components/ui/tabs";
-import AdminParentList from "./AdminParentList";
-import ParentApi from "../../servies/api/Parent/ParentApi";
-import AdminParentUpserForm from "./AdminParentUpserForm";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import AdminStudentList from "./AdminStudentList";
+import StudentApi from "../../servies/api/Student/StudentApi";
+import AdminStudentUnserForm from "./AdminStudentUnserForm";
 
-const AdminParentManage = () => {
+const AdminSudentManage = () => {
     return (
         <>
             <div className="relactive overflow-x-auto"></div>
@@ -30,10 +25,10 @@ const AdminParentManage = () => {
                                                     value="music"
                                                     className="relative"
                                                 >
-                                                    Show Parents
+                                                    Show Students
                                                 </TabsTrigger>
                                                 <TabsTrigger value="podcasts">
-                                                    Create Parents
+                                                    Create Student
                                                 </TabsTrigger>
                                             </TabsList>
                                         </div>
@@ -43,7 +38,7 @@ const AdminParentManage = () => {
                                         >
                                             <div className="flex items-center justify-between">
                                                 <div className="space-y-1">
-                                                    <AdminParentList />
+                                                    <AdminStudentList />
                                                 </div>
                                             </div>
                                         </TabsContent>
@@ -53,11 +48,11 @@ const AdminParentManage = () => {
                                         >
                                             <div className="flex items-center justify-between">
                                                 <div className="space-y-1">
-                                                    <AdminParentUpserForm
+                                                    <AdminStudentUnserForm
                                                         SubmitCreate={(
                                                             formData
                                                         ) =>
-                                                            ParentApi.create(
+                                                            StudentApi.create(
                                                                 formData
                                                             )
                                                         }
@@ -72,21 +67,8 @@ const AdminParentManage = () => {
                     </div>
                 </div>
             </div>
-
-            {/*  <div className="d-grid gap-2 d-md-block">
-                <Link to="ListParent" className="btn btn-primary">
-                    Show Parent
-                </Link>
-                &nbsp;
-                <Link to="ParentCreate" className="btn btn-primary">
-                    ParentCreate
-                </Link>
-            </div>
-            <div>
-                <Outlet />
-            </div> */}
         </>
     );
 };
 
-export default AdminParentManage;
+export default AdminSudentManage;

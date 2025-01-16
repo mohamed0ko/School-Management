@@ -40,8 +40,8 @@ class LoginRequest extends FormRequest
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
-        $guards = ['web','teacher','admin'];
-        $isLogged=false;
+        $guards = ['web', 'teacher', 'parent', 'admin'];
+        $isLogged = false;
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
                 $isLogged = true;
@@ -49,7 +49,7 @@ class LoginRequest extends FormRequest
             }
         }
 
-       
+
         if (!$isLogged) {
             RateLimiter::hit($this->throttleKey());
 
@@ -88,6 +88,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->input('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->input('email')) . '|' . $this->ip());
     }
 }
