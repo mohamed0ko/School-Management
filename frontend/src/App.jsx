@@ -8,15 +8,14 @@ import Users from "./page/Users";
 import Layout from "./router/Layout";
 import Login from "./page/Login";
 
-import AdminParentList from "./page/admin/AdminParentList";
 import AdminParentManage from "./page/admin/AdminParentManage";
 import SutedentDashpored from "./page/students/SutedentDashpored";
 import TeacherDashpored from "./page/teacher/TeacherDashpored";
 import AdminDashpored from "./page/admin/AdminDashpored";
-import AdminParentUpserForm from "./page/admin/AdminParentUpserForm";
 import ParentDashpored from "./page/parents/ParentDashpored";
 import AdminSudentManage from "./page/admin/AdminSudentManage";
 import AdminTeacherManage from "./page/admin/AdminTeacherManage";
+import AdminCourseManage from "./page/admin/AdminCourseManage";
 
 export const redirectToDashboard = (roleTaype) => {
     switch (roleTaype) {
@@ -68,6 +67,10 @@ function App() {
                             <Route
                                 path="TeacherManage"
                                 element={<AdminTeacherManage />}
+                            />
+                            <Route
+                                path="CourseManage"
+                                element={<AdminCourseManage />}
                             />
                         </Route>
 

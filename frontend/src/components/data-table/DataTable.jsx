@@ -44,7 +44,7 @@ export function DataTable({ columns, data }) {
 
     return (
         <>
-            <div className="flex items-center py-3 ">
+            {/*  <div className="flex items-center py-3 ">
                 <Input
                     placeholder="Filter emails..."
                     value={table.getColumn("email")?.getFilterValue() ?? ""}
@@ -56,7 +56,7 @@ export function DataTable({ columns, data }) {
                     className="max-w-sm"
                 />
                 <DataTableViewOptions table={table} />
-            </div>
+            </div> */}
             <div className="table-container rounded-md ">
                 <Table>
                     <TableHeader>

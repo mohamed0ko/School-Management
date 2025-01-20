@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentParentController;
 use App\Http\Controllers\TeacherController;
@@ -18,6 +19,7 @@ Route::middleware(['auth:sanctum', 'ability:admin'])->prefix('admin')->group(sta
         'parent' => StudentParentController::class,
         'student' => StudentController::class,
         'teacher' => TeacherController::class,
+        'course' => CourseController::class,
 
     ]);
 });

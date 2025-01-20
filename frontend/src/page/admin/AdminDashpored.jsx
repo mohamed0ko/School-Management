@@ -88,8 +88,21 @@ export default function AdminDashpored({ className }) {
                                             to="/AdminDashpored/TeacherManage"
                                             className="nav-link align-middle px-0"
                                         >
-                                            <i class="fa-solid fa-chalkboard-user"></i>
+                                            <i className="fa-solid fa-chalkboard-user"></i>
                                             &nbsp; Teachers
+                                        </Link>
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        className="w-full justify-start"
+                                    >
+                                        <Link
+                                            style={{ color: "black" }}
+                                            to="/AdminDashpored/CourseManage"
+                                            className="nav-link align-middle px-0"
+                                        >
+                                            <i className="fa-solid fa-book"></i>
+                                            &nbsp; Courses
                                         </Link>
                                     </Button>
                                 </div>
