@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentParentController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,7 @@ Route::middleware(['auth:sanctum', 'ability:admin'])->prefix('admin')->group(sta
     Route::apiResources([
         'parent' => StudentParentController::class,
         'student' => StudentController::class,
+        'teacher' => TeacherController::class,
 
     ]);
 });

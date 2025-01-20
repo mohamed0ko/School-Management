@@ -79,7 +79,7 @@ class StudentParentController extends Controller
     public function destroy(StudentParent $parent)
     {
 
-        $parent->delete();
+        $parent->forceDelete();
         return new StudentParentResource($parent);
     }
 }

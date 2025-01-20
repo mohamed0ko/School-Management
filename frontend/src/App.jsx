@@ -16,6 +16,7 @@ import AdminDashpored from "./page/admin/AdminDashpored";
 import AdminParentUpserForm from "./page/admin/AdminParentUpserForm";
 import ParentDashpored from "./page/parents/ParentDashpored";
 import AdminSudentManage from "./page/admin/AdminSudentManage";
+import AdminTeacherManage from "./page/admin/AdminTeacherManage";
 
 export const redirectToDashboard = (roleTaype) => {
     switch (roleTaype) {
@@ -58,21 +59,16 @@ function App() {
                             <Route
                                 path="ManageParent"
                                 element={<AdminParentManage />}
-                            >
-                                <Route index element={<AdminParentList />} />
-                                <Route
-                                    path="ParentCreate"
-                                    element={<AdminParentUpserForm />}
-                                />
-                                <Route
-                                    path="ListParent"
-                                    element={<AdminParentList />}
-                                />
-                            </Route>
+                            />
+
                             <Route
                                 path="ManageStudent"
                                 element={<AdminSudentManage />}
-                            ></Route>
+                            />
+                            <Route
+                                path="TeacherManage"
+                                element={<AdminTeacherManage />}
+                            />
                         </Route>
 
                         {/* end admin */}
